@@ -2,16 +2,11 @@
 
 class Solution(object):
 
-    
-    def solveNQueens(self, n):
+    def totalNQueens(self, n):
         """
         :type n: int
         :rtype: List[List[str]]
         """
-
-
-
-
 
         matrix = []
 
@@ -25,7 +20,7 @@ class Solution(object):
 
         self.toSolve(n, matrix, 0, 0, result)
 
-        return result
+        return len(result)
 
     def toSolve(self, n, matrix, i, j, result):
         if i >= n:
@@ -44,7 +39,7 @@ class Solution(object):
 
             j += 1
 
-        return result
+
 
     def isValid(self, matrix, i, j):
         num = 0
@@ -79,6 +74,5 @@ try:
     print so.solveNQueens(4)
 except:
     pass
-
 
 # print so.isValid([".Q..", "Q...", "....", "...."], 1, 0)
