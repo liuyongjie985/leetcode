@@ -1,24 +1,3 @@
-# Example 1:
-# Given intervals [1,3],[6,9], insert and merge [2,5] in as [1,5],[6,9].
-#
-# Example 2:
-# Given [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] in as [1,2],[3,10],[12,16].
-#
-# This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10].
-
-# Example 3:
-# Given [1,2],[12,16], insert and merge [4,9] in as [1,2],[4,9],[12,16].
-
-# Example 4:
-# Given [1,2],[4,9], insert and merge [12,16] in as [1,2],[4,9],[12,16].
-
-
-class Interval(object):
-    def __init__(self, s=0, e=0):
-        self.start = s
-        self.end = e
-
-
 class Solution(object):
     def insert(self, intervals, newInterval):
         """
@@ -26,6 +5,10 @@ class Solution(object):
         :type newInterval: Interval
         :rtype: List[Interval]
         """
+
+        if len(intervals) == 0:
+            return [newInterval]
+
         sorted_intervals = self.quickSort(intervals)
 
         start = -1
@@ -44,17 +27,40 @@ class Solution(object):
                 end = i
             i += 1
 
-        if start < end:
+        if start != -1 and start < end:
             pre = sorted_intervals[:start]
             suffix = sorted_intervals[end + 1:]
-
-            return pre + [newInterval] + suffix
+            temp = Interval()
+            temp.start = min(sorted_intervals[start].start, newInterval.start)
+            temp.end = max(sorted_intervals[end].end, newInterval.end)
+            return pre + [temp] + suffix
         else:
-            if start != -1 and end != -1:
+            if start == end:
+                pre = sorted_intervals[:start]
+                suffix = sorted_intervals[start + 1:]
+                temp = [min(sorted_intervals[start].start, newInterval.start),
+                        max(sorted_intervals[start].end, newInterval.end)]
+                return pre + [temp] + suffix
+            if start != -1 and end == -1:
+                # 放在列表第一个
 
+                return [newInterval] + sorted_intervals
+            else:
+                if start == -1 and end == -1:
+                    # 放在列表最后一个
+                    pre = sorted_intervals[:len(sorted_intervals) - 1]
+                    return pre + [newInterval]
+                else:
+                    if start - 1 == end:
+                        pre = sorted_intervals[:end + 1]
+                        suffix = sorted_intervals[end + 1:]
+                        return pre + [newInterval] + suffix
+                    else:
+                        if start == -1 and end != -1:
+                            # 放在列表最后一个
+                            return sorted_intervals + [newInterval]
 
-
-        end =
+                        return sorted_intervals
 
     def quickSort(self, intervals):
         if len(intervals) <= 1:
@@ -66,7 +72,3 @@ class Solution(object):
         right_list = [x for x in intervals if x.start > mid.start]
 
         return self.quickSort(left_list) + mid_list + self.quickSort(right_list)
-
-
-so = Solution()
-so

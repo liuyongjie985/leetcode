@@ -62,5 +62,6 @@ class Solution(object):
                 sign = 0
             return i, j, sign, bias
 
+
 so = Solution()
 print so.generateMatrix(6)
