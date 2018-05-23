@@ -22,13 +22,14 @@ class Solution(object):
                 return total
 
             total -= 1
+
     def myfunc(self, num, length, s):
         i = 0
 
         while i <= (length - num):
             little_map = {}
             j = i
-            while j < num+i:
+            while j < num + i:
                 little_map[s[j]] = 1
                 j += 1
             what = len(little_map)
@@ -38,5 +39,7 @@ class Solution(object):
             i += 1
         return False
 
+
 re = Solution()
-print re.lengthOfLongestSubstring("enuyazszxldyujzvucidbxqcxiiqjifnxbozbiyatdzqpaljevpisfksovkxfqmctcdumdviiwyxwljcgykadvsrsdqx")
+print re.lengthOfLongestSubstring(
+    "enuyazszxldyujzvucidbxqcxiiqjifnxbozbiyatdzqpaljevpisfksovkxfqmctcdumdviiwyxwljcgykadvsrsdqx")
